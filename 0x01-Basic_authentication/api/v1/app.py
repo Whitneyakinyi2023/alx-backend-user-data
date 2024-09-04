@@ -23,17 +23,16 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(401)
-def unauthorized(error) -> tuple[str, Literal[401]]:
+def unauthorized(error) -> str:
     """Error 401
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 @app.errorhandler(403)
-def forbidden(error) -> tuple[str, Literal[403]]:
+def forbidden(error) -> str:
     """Error 403
     """
     return jsonify({"error":"Forbidden"}), 403
-
 
 
 if __name__ == "__main__":
