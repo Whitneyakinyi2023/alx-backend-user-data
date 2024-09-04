@@ -8,18 +8,13 @@ from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 from typing import Literal
 import os
+from api.v1.auth.auth import Auth
+from api.v1.auth.basic_auth import BasicAuth
 
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
-
-
-@app.errorhandler(404)
-def not_found(error) -> str:
-    """ Not found handler
-    """
-    return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
@@ -34,6 +29,12 @@ def forbidden(error) -> str:
     """
     return jsonify({"error":"Forbidden"}), 403
 
+
+@app.errorhandler(404)
+def not_found(error) -> str:
+    """ Not found handler
+    """
+    return jsonify({"error": "Not found"}), 404
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
